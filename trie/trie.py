@@ -17,7 +17,7 @@ class Trie(object):
             if isinstance(element, Trie):
                 return keys[1:] in element
             return False
-        return True
+        return not isinstance(self.data[keys[0]], Trie)
 
 
     def __setitem__(self, keys, value):
@@ -44,3 +44,9 @@ class TrieUnitTest(unittest.TestCase):
         self.assertTrue(trie[[1,2,3]] == 3)
 
         self.assertFalse([1,2,3,4] in trie)
+        self.assertFalse([1,2] in trie)
+
+        trie[1,2] = 3
+        self.assertFalse([1, 2, 3] in trie)
+        self.assertTrue([1, 2] in trie)
+        self.assertFalse([1] in trie)
