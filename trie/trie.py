@@ -13,7 +13,10 @@ class Trie(object):
         if keys[0] not in self.data:
             return False
         if keys[1:]:
-            return keys[1:] in self.data[keys[0]]
+            element = self.data[keys[0]]
+            if isinstance(element, Trie):
+                return keys[1:] in element
+            return False
         return True
 
 
@@ -39,3 +42,5 @@ class TrieUnitTest(unittest.TestCase):
 
         trie[[1,2,3]] += 2
         self.assertTrue(trie[[1,2,3]] == 3)
+
+        self.assertFalse([1,2,3,4] in trie)
